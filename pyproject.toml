@@ -1,0 +1,14 @@
+[project]
+name = "clinic-lead-automation"
+version = "0.1.0"
+description = "Automatizare lead-uri pentru o clinică stomatologică: webhook semnat → calificare AI → CRM → Telegram → raport zilnic"
+requires-python = ">=3.11"
+dependencies = ["fastapi>=0.115", "pydantic[email]>=2.6", "uvicorn>=0.30"]
+
+[project.optional-dependencies]
+llm = ["anthropic>=1.0"]
+dev = ["pytest>=8", "httpx>=0.27"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
