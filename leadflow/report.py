@@ -48,6 +48,10 @@ def build(conn: sqlite3.Connection, start: date, end: date) -> dict[str, Any]:
     }
 
 
+def _lei(value: int) -> str:
+    return f"{value:,} lei".replace(",", " ")
+
+
 def to_markdown(rep: dict[str, Any]) -> str:
     lines = [f"# Raport lead-uri · {rep['period']}", "",
              f"- **{rep['leads']}** lead-uri reale ({rep['hot']} fierbinți, {rep['urgent']} urgențe), "
@@ -55,7 +59,7 @@ def to_markdown(rep: dict[str, Any]) -> str:
              f"- rată de programare: **{rep['booking_rate']:.0%}**",
              f"- timp median până la primul contact: **{rep['median_response_min']} min** "
              f"(urgențe: {rep['median_urgent_response_min']} min)",
-             f"- valoare programată: **{rep['booked_value']:,} lei**, în lucru: {rep['pipeline_value']:,} lei".replace(",", " "),
+             f"- valoare programată: **{_lei(rep['booked_value'])}**, în lucru: {_lei(rep['pipeline_value'])}",
              "", "## Pâlnie", "", "| etapă | lead-uri |", "|---|---:|"]
     lines += [f"| {k} | {v} |" for k, v in rep["funnel"].items()]
     lines += ["", "## Surse", "", "| sursă | lead-uri | programați | rată |", "|---|---:|---:|---:|"]
